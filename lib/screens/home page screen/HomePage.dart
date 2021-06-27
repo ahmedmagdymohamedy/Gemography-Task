@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GitHub Top repository of the day'),
+        title: Text('GitHub top repository'),
       ),
       body: PageView(
         controller: _pageController,
@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
           Setting(),
         ],
       ),
-      // getBody(index: _currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Trending'),

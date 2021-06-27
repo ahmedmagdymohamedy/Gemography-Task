@@ -31,12 +31,12 @@ class _TrendingState extends State<Trending>
 
   @override
   void initState() {
-    fetchRepositorys(getNexRepoPageIndex());
+    fetchRepositorys(getNexRepoPageIndex(), DateTime.now());
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         // the user on the End of scroll Page
-        fetchRepositorys(getNexRepoPageIndex());
+        fetchRepositorys(getNexRepoPageIndex(), DateTime.now());
       }
     });
     super.initState();
@@ -64,20 +64,20 @@ class _TrendingState extends State<Trending>
                 RepoCard(repository: repositorys[index]),
           )
         :
-
         // loading data ...
         Center(
             child: !loadingFaild
                 ? CircularProgressIndicator()
-                : Text('Loadinig Faild (may be you not have internet)'),
+                : Text(
+                    'Loadinig Faild',
+                    style: TextStyle(color: Colors.red),
+                  ),
           );
   }
 
-  void fetchRepositorys(int numberOfPage) async {
-    // now = to get yesterday
-    DateTime now = DateTime.now().subtract(Duration(days: 1));
+  void fetchRepositorys(int numberOfPage, DateTime date) async {
     String url =
-        'https://api.github.com/search/repositories?q=created:>${now.year}-${formatNumber(now.month)}-${formatNumber(now.day)}&sort=stars&order=desc&page=${numberOfPage}';
+        'https://api.github.com/search/repositories?q=created:>${date.year}-${formatNumber(date.month)}-${formatNumber(date.day)}&sort=stars&order=desc&page=${numberOfPage}';
     var uri = Uri.parse(url);
     try {
       var httpRes = await http.get(uri);
@@ -85,6 +85,13 @@ class _TrendingState extends State<Trending>
         //loding succes
         print('loading succes');
         Map data = jsonDecode(httpRes.body);
+        if (data['items'].length == 0) {
+          // no data for this day
+          // the app trying to get the data of the day before
+          print('${date.toString()} isn\'t hase data');
+          fetchRepositorys(numberOfPage, date.subtract(Duration(days: 2)));
+          return;
+        }
         setData(data);
       } else {
         //loding faild
@@ -94,6 +101,7 @@ class _TrendingState extends State<Trending>
         });
       }
     } catch (e) {
+      //loding faild
       print('loading faild --- $e');
       setState(() {
         loadingFaild = true;
@@ -103,7 +111,6 @@ class _TrendingState extends State<Trending>
 
   void setData(Map data) async {
     List<dynamic> repositorysMapData = data['items'];
-
     for (int i = 0; i < repositorysMapData.length; i++) {
       Map repositoryMapData = repositorysMapData[i];
       // create new Repository

@@ -56,12 +56,17 @@ class RepoCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Image.network(
-                  repository.avatarURL,
-                  width: 24,
+                Hero(
+                  tag: repository.id,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(repository.avatarURL),
+                    radius: 12,
+                  ),
                 ),
                 SizedBox(width: 8),
-                Text(repository.ownerName),
+                Text(
+                  repository.ownerName,
+                ),
                 Spacer(),
                 Icon(Icons.star),
                 SizedBox(width: 2),
