@@ -1,16 +1,32 @@
-# gemography_task
+# To run the app:
+1- run ``` flutter packages get ```  
+2- To run on debug mode ```flutter run ```  
+    
+# How it works:
+When the user open the application it's started to fetch today data from github api with page index 1 ,
+and with scrolling down the app trying to get next page then next page and change state to display it on the listView,
 
-A new Flutter project.
+<img src="screens shot/sc1.jpg" width="300"> 
 
-## Getting Started
+The home page contain two screen , trending and setting , i but it on pageView and you can switch it with bottomNavigationBar with animation , if you go to setting screen the data on trending screen never losing .
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+If you click on any repository card that will open new screen it's calld RepoDetails .. in actually it not has alot of details but you can open the Repository link on browser..
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="screens shot/sc2.jpg" width="300"> 
+
+If the app started with no internet connection will be shown  this Text
+
+<img src="screens shot/sc3.jpg" width="300"> 
+
+# Dependencies:
+
+ ## http
+ To get data from api .
+ 
+ ## url_launcher
+ To open the Repository url on web browser
+
+
+Thanks  Gemography
