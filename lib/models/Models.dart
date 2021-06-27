@@ -5,6 +5,7 @@ class Repository {
   String numberOfStars;
   String ownerName;
   String avatarURL;
+  String htmlUrl;
 
   Repository({
     required this.id,
@@ -13,5 +14,6 @@ class Repository {
     required this.numberOfStars,
     required this.ownerName,
     required this.avatarURL,
+    required this.htmlUrl,
   });
 }

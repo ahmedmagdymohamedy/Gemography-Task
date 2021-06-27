@@ -8,6 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PageController _pageController = PageController();
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,19 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('jjjjjjjjj'),
       ),
-      body: getBody(index: _currentIndex),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: [
+          const TerindingLess(),
+          Setting(),
+        ],
+      ),
+      // getBody(index: _currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Trending'),
@@ -24,20 +37,15 @@ class _HomePageState extends State<HomePage> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            _pageController.animateToPage(
+              _currentIndex,
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
           });
         },
         currentIndex: _currentIndex,
       ),
     );
-  }
-
-  Widget getBody({required int index}) {
-    switch (index) {
-      case 0:
-        return Trending();
-      case 1:
-        return Setting();
-    }
-    return Container();
   }
 }

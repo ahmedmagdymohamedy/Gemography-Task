@@ -5,7 +5,7 @@ class Setting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Setting',
+        'Setting Screen',
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w300,
