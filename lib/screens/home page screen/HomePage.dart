@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('jjjjjjjjj'),
+        title: Text('GitHub Top repository of the day'),
       ),
       body: PageView(
         controller: _pageController,
